@@ -95,11 +95,18 @@
         # This allows consumers to only depend on (and build) only what they need.
         # Though it is possible to build the entire workspace as a single derivation,
         # so this is left up to you on how to organize things
-        pinnacle = craneLib.buildPackage (individualCrateArgs // {
-          pname = "pinnacle";
-          cargoExtraArgs = "-p pinnacle";
-          inherit src;
-        });
+pinnacle = craneLib.buildPackage (individualCrateArgs // {
+  pname = "pinnacle";
+  cargoExtraArgs = "-p pinnacle";
+
+  # Add overrides here:
+  cargoDepsOverride = pkgs: prevDeps: 
+    prevDeps // {
+      time = pkgs.time.overrideAttrs (old: { version = "0.3.35"; });
+    };
+
+  inherit src;
+});
         pinnacle-api-defs = craneLib.buildPackage (individualCrateArgs // {
           pname = "pinnacle-api-defs";
           cargoExtraArgs = "-p pinnacle-api-defs";
