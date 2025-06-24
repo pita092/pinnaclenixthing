@@ -99,7 +99,7 @@
           pname = "pinnacle";
           cargoExtraArgs = "-p pinnacle";
           inherit src;
-        })
+        });
         pinnacle-api-defs = craneLib.buildPackage (individualCrateArgs // {
           pname = "pinnacle-api-defs";
           cargoExtraArgs = "-p pinnacle-api-defs";
